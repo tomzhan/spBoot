@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${prefName!}-实体生成</title>
+    <%include("/common/head.html"){}%>
+</head>
+<body>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <h4>代码生成</h4>
+        <p>请输入tableName</p>
+
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" id="tableName" class="form-control" placeholder="tablename，数据库名称">
+                <span class="input-group-btn">
+                <button class="btn btn-default" type="button" onclick="buildEntity()">生成实体和sql文件</button>
+              </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function buildEntity() {
+        var tableName = $.trim($("#tableName").val());
+        if (Utils.isEmptyObject(tableName)){
+            Alert.errorAutoClose("数据库表不能为null","","",true);
+            return ;
+        }
+        var postData = {tableName: tableName };
+        Ajax.loadingPost("/util/execEntityBuild", postData  ,function(data, isSuccess){
+            if (isSuccess) {
+                Alert.successAutoClose( );
+            } else {
+                Alert.errorAutoClose( );
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+spring:
+   application:
+     name: spBoot-admin
+   profiles:
+#     active: dev       #这里是指使用application-dev.yml的配置，默认会采用
+server:
+    session:
+        cookie:
+            http-only: true
+banner:
+  location: classpath:banner.txt  #字体文件，可到http://patorjk.com/software/taag/生成字体

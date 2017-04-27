@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>spBoot</artifactId>
+        <groupId>com.earl.spBoot</groupId>
+        <version>1.2</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>business</artifactId>
+    <description>业务逻辑模块</description>
+    <version>${spBoot-module.version}</version>
+
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <dependencies>
+        <!--其他模块-->
+        <dependency>
+            <groupId>com.earl.spBoot</groupId>
+            <artifactId>common</artifactId>
+            <version>${spBoot-module.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.earl.spBoot</groupId>
+            <artifactId>mapper</artifactId>
+            <version>${spBoot-module.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+
+
+</project>

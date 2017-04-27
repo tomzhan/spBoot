@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${prefName!}-demo</title>
+    <%include("/common/dataTable.html"){}%>
+</head>
+<body>
+<div id="page-wrapper" class="gray-bg" style="margin-left: 0px">
+    <div class="row wrapper border-bottom white-bg page-heading">
+
+        <div class="ibox-title">
+            <ol class="breadcrumb">
+                <li>${prefName!}-demo</li>
+                <li><strong><a href="">demo列表</a></strong></li>
+            </ol>
+        </div>
+        <div class="ibox-content custom_table">
+            <table class="table table-striped table-bordered table-hover " id="editable">
+                <thead>
+                <tr>
+                    <th>UUID</th>
+                    <th>姓名</th>
+                    <th>用户名</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Page-Level Scripts -->
+<script>
+    var table;
+    $(document).ready(function() {
+        initTable();
+
+        //enter回车事件
+        document.onkeydown = function(e){
+            var ev = document.all ? window.event : e;
+            if(ev.keyCode==13) {
+                $('#filterButton').trigger('click');//点击搜索
+            }
+        }
+    });
+
+    function initTable(){
+        table =  Table.builderTable({
+            tableId : 'editable',//表格id
+            controller : '/demo',//表格操作对应控制器
+            hasServer : true,//是否从服务端获取数据
+            buttons : [  'add'  ],//表头按钮集合
+            delTipsKey : 'name',//删除提示内容key
+            tips : 'demo',  //提示标题
+            addUrl:'add'
+        }, {
+            columns : [
+                {
+                    data : "id"
+                },{
+                    data : "name"
+                },{
+                    data : "username"
+                },{
+                    data : "strCreateDate"
+                } ],
+            //定义某列内容
+            columnDefs : [ {
+                    targets : 4,
+                    render : function(data, type, row) {
+                        var html  =  Table.getButtons(row, [ 'edit',  'del' ], 'id', 'name');
+                        return html;
+                    }
+                }  ]
+        });
+    }
+
+
+</script>
+</body>
+</html>

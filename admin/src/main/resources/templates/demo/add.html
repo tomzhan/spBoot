@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${prefName!}-新增demoUser</title>
+<%include("/common/modify.html"){}%>
+<body>
+	<div id="page-wrapper" class="gray-bg" style="margin-left: 0px">
+		<div class="row wrapper wrapper-content animated fadeInRight"
+			style="padding-top: 0px">
+			<div class="row">
+				<div class="ibox">
+					<div class="ibox-title">
+						<ol class="breadcrumb">
+							<li><a href="${projectPath}/demo">demo管理</a></li>
+							<li class="active"><strong>新增demoUser</strong></li>
+						</ol>
+					</div>
+
+					<div class="ibox-content">
+						<form id="form" role="inputFrom" action="save" class="form-horizontal"  >
+							<table id="tab" class="table table-bordered">
+							
+								<tr class="form-group">
+									<td class="control-label"  >用户名</td>
+									<td>
+									   <div class="form-group-xs  col-xs-4">
+									     <input type="text" name="username" class="form-control" id="username" datatype="*"  maxlength=25 >
+									  </div>
+								     </td>
+								</tr>
+
+								<tr class="form-group">
+									<td class="control-label"  >姓名</td>
+									<td>
+										<div class="form-group-xs  col-xs-4">
+											<input type="text" name="name" class="form-control" id="name" datatype="*"  maxlength=10 >
+										</div>
+									</td>
+								</tr>
+
+								<tr class="form-group">
+									<td align="right" >
+									</td>
+									<td>
+									   <div class="form-group-xs  col-xs-4">
+										   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<button class="btn btn-primary" id="determine" type="submit"  >保存</button>
+											&nbsp;&nbsp;&nbsp;&nbsp;
+											<button class="btn btn-white" id="revert" type="button">返回</button>
+									  </div>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	var form;
+	$().ready(function(){
+		//返回
+		$("#revert").bind("click", function() {
+			pathRedirect.location("/demo");
+		});
+		form = initForm();
+	});
+
+	//初始化表单验证插件
+	function initForm() {
+		return  $("#form").Validform({
+			tiptype: 4,
+			showAllError:true,                                   //显示所有错误
+			ajaxPost:true,                                       //ajax提交
+			postonce:true,                                        //防止重复提交
+			beforeSubmit:function(curForm){            			 //验证通过，提交前的处理方法
+			},
+			callback:function(result){                          //返回结果的处理函数
+				//若不是成功状态
+				if (!Ajax.isSuccess(result) ) {
+					Alert.errorAutoClose(result.error,function(){
+						//重置表单状态
+						form.resetStatus();
+					},"",true);
+				} else {
+					Alert.successAutoClose("", function() {
+						pathRedirect.location("/demo");
+					});
+				}
+			}
+		});
+	};
+
+	</script>
+</body>
+</html>
