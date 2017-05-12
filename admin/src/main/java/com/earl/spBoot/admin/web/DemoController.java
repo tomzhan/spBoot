@@ -1,19 +1,21 @@
 package com.earl.spBoot.admin.web;
 
 import com.earl.spBoot.admin.base.BaseController;
+import com.earl.spBoot.business.service.admin.DemoUserService;
+import com.earl.spBoot.common.constants.ResultCode;
+import com.earl.spBoot.common.util.BeanUtil;
+import com.earl.spBoot.common.util.JsonUtil;
+import com.earl.spBoot.common.util.ResultUtil;
 import com.earl.spBoot.mapper.entity.DemoUser;
 import com.earl.spBoot.mapper.vo.DemoUserVO;
 import com.github.pagehelper.PageInfo;
-import com.earl.spBoot.business.service.admin.DemoUserService;
-import com.earl.spBoot.common.constants.ResultCode;
-import com.earl.spBoot.common.plugins.ExpireTime;
-import com.earl.spBoot.common.plugins.RedisService;
-import com.earl.spBoot.common.util.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * demo测试controller
@@ -37,7 +40,7 @@ public class DemoController extends BaseController {
 
 
     @Autowired
-    private RedisService redisService;
+    private RedisTemplate redisTemplate;
 
     private static final String DEMO_LIST ="demoList";
 
@@ -61,15 +64,17 @@ public class DemoController extends BaseController {
     @RequestMapping(value="cachePageList",method = RequestMethod.POST)
     public @ResponseBody String cachePageList(@RequestParam(defaultValue = "1") Integer pageNum,
                                          @RequestParam(defaultValue = "10")Integer pageSize,String search) {
-        PageInfo page = redisService.get(DEMO_LIST + pageNum + search,PageInfo.class);
+        ValueOperations<String,PageInfo> operations = redisTemplate.opsForValue();
+        PageInfo page = operations.get(DEMO_LIST + pageNum + search );
         //若缓存已存在，直接返回页面显示
         if (page != null){
+            log.debug("@@@@@@@   读取缓存返回 @@@@@@@@@@"+page.toString());
             return JsonUtil.toJsonString( page);
         }
         page = demoUserService.pageList(pageNum,pageSize,search);
         if ( CollectionUtils.isNotEmpty(page.getList()) ){
             //缓存一分钟
-            redisService.set(DEMO_LIST+pageNum+search , page , ExpireTime.ONE_MIN);
+            operations.set(DEMO_LIST+pageNum+search , page ,1, TimeUnit.MINUTES);
         }
         return JsonUtil.toJsonString( page);
     }
