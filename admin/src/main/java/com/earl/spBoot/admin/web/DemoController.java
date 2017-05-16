@@ -1,10 +1,10 @@
 package com.earl.spBoot.admin.web;
 
+import com.alibaba.fastjson.JSON;
 import com.earl.spBoot.admin.base.BaseController;
 import com.earl.spBoot.business.service.admin.DemoUserService;
 import com.earl.spBoot.common.constants.ResultCode;
 import com.earl.spBoot.common.util.BeanUtil;
-import com.earl.spBoot.common.util.JsonUtil;
 import com.earl.spBoot.common.util.ResultUtil;
 import com.earl.spBoot.mapper.entity.DemoUser;
 import com.earl.spBoot.mapper.vo.DemoUserVO;
@@ -13,7 +13,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
@@ -31,7 +30,6 @@ import java.util.concurrent.TimeUnit;
  * Created by earl on 2017/3/27.
  */
 @Controller
-@EnableCaching
 @RequestMapping("/demo")
 public class DemoController extends BaseController {
 
@@ -50,7 +48,7 @@ public class DemoController extends BaseController {
     public @ResponseBody String pageList(@RequestParam(defaultValue = "1") Integer pageNum,
                               @RequestParam(defaultValue = "10")Integer pageSize,String search)  {
         PageInfo page = demoUserService.pageList(pageNum,pageSize,search);
-        return JsonUtil.toJsonString( page);
+        return JSON.toJSONString( page);
     }
 
     //事务测试
@@ -69,14 +67,14 @@ public class DemoController extends BaseController {
         //若缓存已存在，直接返回页面显示
         if (page != null){
             log.debug("@@@@@@@   读取缓存返回 @@@@@@@@@@"+page.toString());
-            return JsonUtil.toJsonString( page);
+            return JSON.toJSONString( page);
         }
         page = demoUserService.pageList(pageNum,pageSize,search);
         if ( CollectionUtils.isNotEmpty(page.getList()) ){
             //缓存一分钟
             operations.set(DEMO_LIST+pageNum+search , page ,1, TimeUnit.MINUTES);
         }
-        return JsonUtil.toJsonString( page);
+        return JSON.toJSONString( page);
     }
 
     //缓存获取列表，方式二，注解
@@ -85,14 +83,14 @@ public class DemoController extends BaseController {
     public @ResponseBody String cachePageList2(@RequestParam(defaultValue = "1") Integer pageNum,
                                               @RequestParam(defaultValue = "10")Integer pageSize,String search)  {
         PageInfo page = demoUserService.pageList(pageNum,pageSize,search);
-        return  JsonUtil.toJsonString( page);
+        return  JSON.toJSONString( page);
     }
 
     //保存
     @RequestMapping(value="save",method=RequestMethod.POST)
     public  @ResponseBody String save( DemoUser po)   {
         if ( po == null) {
-            return ResultUtil.getError(ResultCode.PARAM_ERROR);
+            return ResultUtil.getError(ResultCode.PARAM_ERROR.getCode());
         }
         //实体保存
         po.setCreateDate(new Date());
@@ -113,11 +111,11 @@ public class DemoController extends BaseController {
     @RequestMapping(value="update",method=RequestMethod.POST)
     public @ResponseBody String update( DemoUserVO vo)   {
         if ( vo == null) {
-            return ResultUtil.getError(ResultCode.PARAM_ERROR);
+            return ResultUtil.getError(ResultCode.PARAM_ERROR.getCode());
         }
         DemoUser po = demoUserService.selectByPrimaryKey(vo.getId());
         if ( po == null) {
-            return ResultUtil.getError(ResultCode.PARAM_ERROR);
+            return ResultUtil.getError(ResultCode.PARAM_ERROR.getCode());
         }
         BeanUtil.copyProperties(vo,po,BeanUtil.getNullPropertyNames(vo));
         //更新
@@ -129,7 +127,7 @@ public class DemoController extends BaseController {
     @RequestMapping("delete")
     public   @ResponseBody  String delete( String[] id )  {
         if (ArrayUtils.isEmpty(id)){
-            return ResultUtil.getError(ResultCode.PARAM_ERROR);
+            return ResultUtil.getError(ResultCode.PARAM_ERROR.getCode());
         }
         for (String tempId : id) {
             demoUserService.deleteByPrimaryKey(tempId);

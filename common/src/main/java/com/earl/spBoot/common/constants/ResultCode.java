@@ -1,83 +1,57 @@
 package com.earl.spBoot.common.constants;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * 状态码
  * Created by earl on 2017/3/25.
  */
-public class ResultCode {
-
-    private ResultCode(){}
-
-    //-----------固定key名称----------------
-    public static final String RETCODE = "retcode";
-    public static final String MESSAGE = "message";
-    public static final String RESPONSE = "response";
-    public static final int SUCCESS = 1;
-    public static final int FAILURE = 0;
-    public static final String STATUS = "status";
-    public static final String ERROR = "error";
+public enum ResultCode {
 
     // ------------------------固定状态码------------------------------------
-
-    public static final String SUCCESS_CODE = "200";        // 服务器正常
-    public static final String UN_KNOW_EXCEPTION = "500";    //服务器异常
-    public static final String CLIENT_ERROR = "400";            //数据格式错误
-    public static final String PARAM_ERROR = "401";            //参数错误
-    public static final String NO_PERMISSIONS = "403";        //权限不够
-    public static final String OP_ERROR = "501";            //操作错误
-    public static final String JSON_ERROR = "502";
-    public static final String JDBC_ERROR = "503";            //jdbc错误
-    public static final String DATA_ASSOCIATION = "504";        //数据有关联关系
-    public static final String DATA_NOT_EXIST = "505";        //记录不存在
-    public static final String ILLEGAL_OPERATING = "506";        //非法操作
-    public static final String WECHAT_ERROR = "507";           //微信接口错误
-    public static final String UNKNOWN_ERROR = "508";        //未知错误
-
-
+    RETCODE("retcode", null) ,MESSAGE("message", null) ,RESPONSE("response", null) ,
+    STATUS("status", null) ,ERROR("error", null) , FAILURE("0", "失败") ,SUCCESS("1", "成功") ,
+    SUCCESS_CODE("200", "服务器正常"),UN_KNOW_EXCEPTION("500", "未知异常") ,
+    CLIENT_ERROR("400", "数据格式错误") , PARAM_ERROR("401", "参数错误") ,
+    NO_PERMISSIONS("403", "无权限进行此操作!") , OP_ERROR("501", "操作失败，请重试") ,
+    JSON_ERROR("502", "Json操作错误,请检查数据格式") , JDBC_ERROR("503", "数据库操作错误") ,
+    DATA_ASSOCIATION("504", "操作失败,数据存在关联关系") ,DATA_NOT_EXIST("505", "操作失败,记录不存在") ,
+    ILLEGAL_OPERATING("506", "操作失败,用户非法操作") ,WECHAT_ERROR("507", "操作失败，对接微信配置发生错误") ,
+    UNKNOWN_ERROR("508", "未知错误") ,
     //-----------------------用户相关，状态码1000~1200 -----------------------------------
-    /**
-     * 用户创建失败
-     */
-    public static final String ACCOUNT_CREATE_FAIL = "1000";
-    /**
-     * 用户名或密码错误
-     */
-    public static final String ACCOUNT_LONG_ERROR = "1001";
-    /**
-     * 两次输入密码不一致
-     */
-    public static final String ACCOUNT_PWD_ERROR = "1002";
-    /**
-     * 用户名不能为空
-     */
-    public static final String ACCOUNT_NAME_EMPTY = "1003";
-    /**
-     * 用户类型错误
-     */
-    public static final String ACCOUNT_TYPE_ERROR = "1004";
 
-    /**
-     * 用户更新失败
-     */
-    public static final String ACCOUNT_UPDATE_FAIL = "1005";
-    /**
-     * 登录尝试次数过多
-     */
-    public static final String ACCOUNT_TRY_TOO_MORE = "1006";
+    ACCOUNT_CREATE_FAIL("1000", "用户创建失败") , ACCOUNT_LONG_ERROR("1001", "用户名或密码错误") ,
+    ACCOUNT_PWD_ERROR("1002", "密码与确认密码不一致") ,ACCOUNT_NAME_EMPTY("1003", "用户名不能为空") ,
+    ACCOUNT_TYPE_ERROR("1004", "用户类型错误") ,ACCOUNT_UPDATE_FAIL("1005", "用户修改失败") ,
+    ACCOUNT_TRY_TOO_MORE("1006", "登录尝试次数过多，请10分钟后重试") ,ACCOUNT_LOCKED("1007", "账号被锁定") ,
+    ACCOUNT_NOT_OPEN("1008", "未开放登录的用户") ,CAPTCHA_ERROR("1009", "验证码错误."),
+    //-----------------------其他1300~~~~ -----------------------------------
+    REGISTER_MODIFY_REPEAT("1300", "报名申请修改信息重复提交.");
 
-    /**
-     * 用户被锁定
-     */
-    public static final String ACCOUNT_LOCKED = "1007";
+    private String code;
+    private String msg;
 
-    /**
-     * 未开放登录的用户
-     */
-    public static final String ACCOUNT_NOT_OPEN = "1008";
+    ResultCode(String code, String msg){
+        this.code = code;
+        this.msg = msg;
+    }
 
-    /**
-     * 验证码错误
-     */
-    public static final String CAPTCHA_ERROR = "1009";
+    public String getCode() {
+        return code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public static String  getMessage(String code){
+        for (ResultCode temp : ResultCode.values()) {
+            if (StringUtils.equals(temp.code,code)) {
+                return temp.getMsg();
+            }
+        }
+        return null;
+    }
+
 
 }

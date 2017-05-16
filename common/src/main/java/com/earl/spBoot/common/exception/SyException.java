@@ -2,7 +2,6 @@ package com.earl.spBoot.common.exception;
 
 
 import com.earl.spBoot.common.constants.ResultCode;
-import com.earl.spBoot.common.constants.ResultMap;
 
 /**
  * 自定义异常
@@ -16,7 +15,7 @@ public class SyException extends RuntimeException{
 
     public SyException(Throwable cause) {
         super(cause);
-        this.resultCode = ResultCode.OP_ERROR;
+        this.resultCode = ResultCode.OP_ERROR.getCode();
     }
 
     public SyException(String resultCode, Throwable cause) {
@@ -26,7 +25,7 @@ public class SyException extends RuntimeException{
 
 
     public SyException(String resultCode) {
-        super(ResultMap.getMessage(resultCode));
+        super(ResultCode.getMessage(resultCode));
         this.resultCode = resultCode;
     }
 
@@ -35,7 +34,7 @@ public class SyException extends RuntimeException{
     }
 
     public String getResultMessage() {
-        return ResultMap.getMessage(resultCode);
+        return ResultCode.getMessage(resultCode);
     }
 
 }

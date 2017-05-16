@@ -1,6 +1,7 @@
 package com.earl.spBoot.common.util;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 微信工具类
@@ -23,8 +24,8 @@ public class WeChatUtils {
      * @param key  某个key
      * @return key对应的值
      */ 
-    public static String getValue(Object jsonData,String key) {
-		JSONObject jsonObj =  JSONObject.fromObject(jsonData);
+    public static String getValue(String jsonData,String key) {
+		JSONObject jsonObj =  JSON.parseObject(jsonData);
 		if (jsonObj == null ) {
 			return null;
 		}

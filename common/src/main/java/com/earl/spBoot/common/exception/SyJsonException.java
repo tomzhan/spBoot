@@ -12,7 +12,7 @@ public class SyJsonException extends SyException {
     private static final long serialVersionUID = 1L;
 
     public SyJsonException(Throwable cause) {
-        super(ResultCode.JSON_ERROR, cause);
+        super(ResultCode.JSON_ERROR.getCode(), cause);
     }
 
 }
