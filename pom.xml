@@ -19,6 +19,7 @@
         <module>business</module>
         <!--数据访问、实体映射模块-->
         <module>mapper</module>
+        <module>bean</module>
     </modules>
 
     <parent>

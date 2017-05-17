@@ -1,9 +1,9 @@
 package com.earl.spBoot.business.service.admin;
 
 
+import com.earl.spBoot.bean.entity.DemoUser;
 import com.github.pagehelper.PageInfo;
 import com.earl.spBoot.business.base.IBaseService;
-import com.earl.spBoot.mapper.entity.DemoUser;
 
 /**
  * demo服务接口

@@ -16,7 +16,7 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!--生成Model类存放位置-->
-        <javaModelGenerator targetPackage="com.earl.spBoot.mapper.entity" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.earl.spBoot.bean.entity" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>

@@ -1,4 +1,4 @@
-package com.earl.spBoot.mapper.entity;
+package com.earl.spBoot.bean.entity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

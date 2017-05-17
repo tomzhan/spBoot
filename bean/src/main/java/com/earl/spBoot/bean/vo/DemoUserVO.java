@@ -1,6 +1,7 @@
-package com.earl.spBoot.mapper.vo;
+package com.earl.spBoot.bean.vo;
 
-import com.earl.spBoot.mapper.entity.DemoUser;
+
+import com.earl.spBoot.bean.entity.DemoUser;
 
 /**
  * Created by earl on 2017/3/30.

@@ -1,9 +1,9 @@
 package com.earl.spBoot.mapper.dao;
 
+import com.earl.spBoot.bean.entity.DemoUser;
+import com.earl.spBoot.bean.vo.DemoUserVO;
 import com.earl.spBoot.mapper.base.IBaseDao;
-import com.earl.spBoot.mapper.entity.DemoUser;
 import com.earl.spBoot.mapper.sqlProvider.DemoUserSqlProvider;
-import com.earl.spBoot.mapper.vo.DemoUserVO;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.SelectProvider;

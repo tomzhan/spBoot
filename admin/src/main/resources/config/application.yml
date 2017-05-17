@@ -25,3 +25,5 @@ server:
             http-only: true
 banner:
   location: classpath:banner.txt  #字体文件，可到http://patorjk.com/software/taag/生成字体
+mybatis:
+   typeAliasesPackage: com.earl.spBoot.bean.entity  #bean模块的实体扫描

@@ -26,9 +26,3 @@ spring:
       maxIdle: 7             # 连接池中的最大空闲连接
       minIdle: 0             # 连接池中的最小空闲连接
       timeout: 3000                 #连接超时时间（毫秒）
-  resources:
-    chain:
-      html-application-cache: false
-      cache: false                       #读取静态资源文件是否通过缓存，false表示不通过缓存读取
-mybatis:
-   typeAliasesPackage: com.earl.spBoot.mapper.entity  #mapper模块的实体扫描配置

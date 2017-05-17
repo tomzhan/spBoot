@@ -2,12 +2,12 @@ package com.earl.spBoot.admin.web;
 
 import com.alibaba.fastjson.JSON;
 import com.earl.spBoot.admin.base.BaseController;
+import com.earl.spBoot.bean.entity.DemoUser;
+import com.earl.spBoot.bean.vo.DemoUserVO;
 import com.earl.spBoot.business.service.admin.DemoUserService;
 import com.earl.spBoot.common.constants.ResultCode;
 import com.earl.spBoot.common.util.BeanUtil;
 import com.earl.spBoot.common.util.ResultUtil;
-import com.earl.spBoot.mapper.entity.DemoUser;
-import com.earl.spBoot.mapper.vo.DemoUserVO;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
