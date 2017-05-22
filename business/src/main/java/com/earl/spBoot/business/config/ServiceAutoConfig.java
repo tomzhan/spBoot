@@ -1,7 +1,9 @@
 package com.earl.spBoot.business.config;
 
 import com.earl.spBoot.business.service.DemoUserService;
+import com.earl.spBoot.business.service.WechatRegisterService;
 import com.earl.spBoot.business.service.impl.DemoUserServiceImpl;
+import com.earl.spBoot.business.service.impl.WechatRegisterServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,6 +17,11 @@ public class ServiceAutoConfig {
     @Bean
     public DemoUserService demoUserService(){
         return new DemoUserServiceImpl();
+    }
+
+    @Bean
+    public WechatRegisterService wechatRegisterService(){
+        return new WechatRegisterServiceImpl();
     }
 
 }

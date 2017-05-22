@@ -32,6 +32,7 @@ public class GenUtils {
 		templates.add("codeTemplate/Entity.java.vm");
 		templates.add("codeTemplate/Dao.java.vm");
 		templates.add("codeTemplate/Dao.xml.vm");
+		templates.add("codeTemplate/Service.java.vm");
 		templates.add("codeTemplate/ServiceImpl.java.vm");
 		templates.add("codeTemplate/Controller.java.vm");
 		return templates;
@@ -177,7 +178,7 @@ public class GenUtils {
 		}
 
 		if(template.contains("ServiceImpl.java.vm")){
-			return packagePath + "impl" + File.separator + className + "ServiceImpl.java";
+			return packagePath + "service"+ File.separator+"impl" + File.separator + className + "ServiceImpl.java";
 		}
 
 		if(template.contains("Controller.java.vm")){

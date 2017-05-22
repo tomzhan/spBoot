@@ -41,6 +41,7 @@ public class AdminApplication {
 						"Application '{}' is running! Access URLs:\n\t" +
 						"Local: \t\t{}://localhost:{}\n\t" +
 						"External: \t{}://{}:{}\n\t" +
+						"接口文档地址: \t\t{}://localhost:{}\n\t" +
 						"Profile(s): \t{}\n----------------------------------------------------------",
 				env.getProperty("spring.application.name"),
 				protocol,
@@ -48,6 +49,7 @@ public class AdminApplication {
 				protocol,
 				InetAddress.getLocalHost().getHostAddress(),
 				env.getProperty("server.port")+contextPath,
+				protocol,env.getProperty("server.port")+contextPath+"/swagger-ui.html",
 				env.getActiveProfiles());
 	}
 

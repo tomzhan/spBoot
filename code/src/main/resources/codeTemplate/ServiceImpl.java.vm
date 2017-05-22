@@ -8,9 +8,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import ${package}.business.base.BaseService;
-import ${package}.business.dao.IBaseMapper;
+import ${package}.business.base.IBaseDao;
+import ${package}.business.service.${className}Service;
 import ${package}.business.dao.${className}Mapper;
-import ${package}.entity.${className};
+import ${package}.bean.entity.${className};
 import java.util.List;
 
 
@@ -23,14 +24,14 @@ import java.util.List;
  */
 @Service("${classname}Service")
 @Transactional
-public class ${className}Service BaseService<${className},${pk.attrType}> implements ${className}Service  {
+public class ${className}ServiceImpl extends BaseService<${className},${pk.attrType}> implements ${className}Service  {
 
 	@Autowired
 	private ${className}Mapper ${classname}Mapper;
 
 
     @Override
-    protected IBaseMapper <${className}> getBaseDao() {
+    protected IBaseDao <${className}> getBaseDao() {
         return ${classname}Mapper;
     }
 

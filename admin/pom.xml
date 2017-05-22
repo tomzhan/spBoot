@@ -6,14 +6,13 @@
     <parent>
         <artifactId>spBoot</artifactId>
         <groupId>com.earl.spBoot</groupId>
-        <version>${spBoot-module.version}</version>
+        <version>1.2</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>admin</artifactId>
     <packaging>war</packaging>
     <description>后台项目</description>
-    <version>${spBoot-module.version}</version>
 
     <!--版本属性-->
     <properties>
@@ -73,10 +72,6 @@
                         <goals>
                             <goal>repackage</goal>
                         </goals>
-                        <!--可以生成不含依赖包的不可执行Jar包-->
-                        <!--<configuration>-->
-                        <!--<classifier>exec</classifier>-->
-                        <!--</configuration> -->
                     </execution>
                 </executions>
             </plugin>

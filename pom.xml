@@ -8,18 +8,18 @@
     <groupId>com.earl.spBoot</groupId>
     <artifactId>spBoot</artifactId>
     <packaging>pom</packaging>
-    <version>${spBoot-module.version}</version>
+    <version>1.2</version>
 
     <modules>
         <!--后台模块-->
         <module>admin</module>
         <!--通用工具、属性模块-->
         <module>common</module>
-        <!--业务逻辑service模块-->
+        <!--业务逻辑模块-->
         <module>business</module>
-        <!--数据访问、实体映射模块-->
-        <module>mapper</module>
+        <!--实体模块-->
         <module>bean</module>
+        <!--代码生成模块-->
         <module>code</module>
     </modules>
 
@@ -42,6 +42,7 @@
         <springloaded.version>1.2.6.RELEASE</springloaded.version>
         <fastjson.version>1.2.17</fastjson.version>
         <cglib.version>3.2.5</cglib.version>
+        <swagger2.version>2.6.1</swagger2.version>
     </properties>
 
         <dependencies>
@@ -87,6 +88,18 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-devtools</artifactId>
             </dependency>
+            <!--文档生成插件swagger2-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+
         </dependencies>
 
 </project>
