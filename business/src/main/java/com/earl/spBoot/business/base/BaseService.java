@@ -1,7 +1,5 @@
 package com.earl.spBoot.business.base;
 
-import com.earl.spBoot.mapper.base.IBaseDao;
-
 import java.util.List;
 
 /**

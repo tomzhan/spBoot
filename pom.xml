@@ -20,6 +20,7 @@
         <!--数据访问、实体映射模块-->
         <module>mapper</module>
         <module>bean</module>
+        <module>code</module>
     </modules>
 
     <parent>

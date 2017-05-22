@@ -8,10 +8,8 @@ import java.util.Date;
 
 /**
  * 日期处理
- * 
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2016年12月21日 下午12:53:33
+ * @author earl
+ * @date 2017-05-18 14:25
  */
 public class DateUtils {
 	/** 时间格式(yyyy-MM-dd) */

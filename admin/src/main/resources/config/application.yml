@@ -25,5 +25,18 @@ server:
             http-only: true
 banner:
   location: classpath:banner.txt  #字体文件，可到http://patorjk.com/software/taag/生成字体
+#---------mybatis配置---------------
 mybatis:
-   typeAliasesPackage: com.earl.spBoot.bean.entity  #bean模块的实体扫描
+   typeAliasesPackage: com.earl.spBoot.bean.entity   #实体扫描
+   mapper-locations: classpath:mapper/*.xml
+#通用mapper配置
+mapper:
+  mappers: com.earl.spBoot.business.base.IBaseDao
+  not-empty: false
+  identity: MYSQL
+#分页配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

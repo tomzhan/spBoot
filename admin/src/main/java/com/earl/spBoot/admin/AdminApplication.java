@@ -1,7 +1,7 @@
 package com.earl.spBoot.admin;
 
 import com.earl.spBoot.admin.config.yml.PathYml;
-import com.earl.spBoot.common.util.DefaultProfileUtil;
+import com.earl.spBoot.common.util.DefaultProfileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -26,7 +26,7 @@ public class AdminApplication {
 	//启动方法
 	public static void main(String[] args) throws UnknownHostException {
 		SpringApplication app = new SpringApplication(AdminApplication.class);
-		DefaultProfileUtil.addDefaultProfile(app);
+		DefaultProfileUtils.addDefaultProfile(app);
 		Environment env = app.run(args).getEnvironment();
 		//是否使用ssl
 		String protocol = "http";

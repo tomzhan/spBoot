@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.earl.spBoot.business.dao.DemoUserMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.earl.spBoot.bean.entity.DemoUser" id="demoUserMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="username" column="userName"/>
+        <result property="roleid" column="roleId"/>
+        <result property="createDate" column="create_date"/>
+    </resultMap>
+
+    <resultMap type="com.earl.spBoot.bean.vo.DemoUserVO" id="demoUserVoMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="username" column="userName"/>
+        <result property="roleid" column="roleId"/>
+        <result property="createDate" column="create_date"/>
+        <result property="strCreateDate" column="strCreateDate"/>
+    </resultMap>
+
+
+    <select id="pageList" resultMap="demoUserVoMap">
+        SELECT *,date_format(create_date,'%Y-%c-%d %h:%i:%s') as 'strCreateDate'
+        FROM demo_user
+        WHERE 1 = 1
+        <if test="search != null and search.trim() != ''">
+            AND name LIKE concat('%', #{search}, '%')
+            OR username LIKE concat('%', #{search}, '%')
+        </if>
+    </select>
+
+
+	<delete id="deleteBatch">
+		delete from demo_user where id in 
+		<foreach item="id" collection="ids" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

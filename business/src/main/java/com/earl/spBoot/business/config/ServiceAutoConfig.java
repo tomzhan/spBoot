@@ -1,7 +1,7 @@
 package com.earl.spBoot.business.config;
 
-import com.earl.spBoot.business.service.admin.DemoUserService;
-import com.earl.spBoot.business.service.admin.impl.DemoUserServiceImpl;
+import com.earl.spBoot.business.service.DemoUserService;
+import com.earl.spBoot.business.service.impl.DemoUserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

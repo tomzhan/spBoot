@@ -1,8 +1,9 @@
 package com.earl.spBoot.common.util;
 
 
-import com.alibaba.fastjson.JSON;
+
 import com.earl.spBoot.common.constants.ResultCode;
+import com.earl.spBoot.common.constants.ResultResponse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,83 +16,88 @@ public final class ResultUtil {
 
     private ResultUtil(){}
 
-    public static String getError() {
+    private static ResultResponse getErrorResponse(int code){
+        ResultResponse result = new ResultResponse();
+        result.setStatus(ResultCode.FAILURE.getCode());
+        result.setCode(code);
+        result.setError(ResultCode.getMessage(code));
+        return result;
+    }
+
+    public static ResultResponse getError() {
         return getError(ResultCode.OP_ERROR.getCode());
     }
 
 
-    public static String getError(String code) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put(ResultCode.STATUS.getCode(), ResultCode.FAILURE.getCode());
-        map.put(ResultCode.RETCODE.getCode(), code);
-        map.put(ResultCode.ERROR.getCode(), ResultCode.getMessage(code));
-        return JSON.toJSONString(map);
+    public static ResultResponse getError(int code) {
+        return getErrorResponse(code);
     }
 
 
-    public static String getError(String code, String message) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put(ResultCode.STATUS.getCode(), ResultCode.FAILURE.getCode() );
-        map.put(ResultCode.RETCODE.getCode(), code);
-        map.put(ResultCode.ERROR.getCode(), message);
-        return JSON.toJSONString(map);
+    public static ResultResponse getError(int code, String message) {
+        ResultResponse result = getErrorResponse(code);
+        result.setError(message);
+        return result;
     }
 
-    public static String getError(String code, String key, Object value) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put(ResultCode.STATUS.getCode(), ResultCode.FAILURE.getCode());
-        map.put(ResultCode.RETCODE.getCode(), code);
-        map.put(ResultCode.ERROR.getCode(), ResultCode.getMessage(code));
+    public static ResultResponse getError(int code, String key, Object value) {
+        ResultResponse result = getErrorResponse(code);
+        Map<String, Object> map = new HashMap< >();
         map.put(key, value);
-        return JSON.toJSONString(map);
+        result.setData(map);
+        return result;
     }
 
-    public static String getError(String code, String[] keys, Object... values) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put(ResultCode.STATUS.getCode(), ResultCode.FAILURE.getCode() );
-        map.put(ResultCode.RETCODE.getCode(), code);
-        map.put(ResultCode.ERROR.getCode(), ResultCode.getMessage(code));
+    public static ResultResponse getError(int code, String[] keys, Object... values) {
+        ResultResponse result = getErrorResponse(code);
+        Map<String, Object> map = new HashMap< >();
         if (values != null && values.length > 0) {
             for (int i = 0; i < values.length; i++) {
                 map.put(keys[i], values[i]);
             }
         }
-        return JSON.toJSONString(map);
+        result.setData(map);
+        return result;
     }
 
-    public static String getSuccess() {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put(ResultCode.STATUS.getCode(), ResultCode.SUCCESS.getCode() );
-        map.put(ResultCode.RETCODE.getCode(), ResultCode.SUCCESS_CODE.getMsg());
-        return JSON.toJSONString(map);
+
+    private static ResultResponse getSuccessResponse(){
+        ResultResponse result = new ResultResponse();
+        int successCode  =  ResultCode.SUCCESS_CODE.getCode();
+        result.setStatus(ResultCode.SUCCESS.getCode());
+        result.setCode(successCode );
+        result.setMessage( ResultCode.getMessage(successCode));
+        return result;
     }
 
-    public static String getSuccess(Object response){
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put(ResultCode.STATUS.getCode(), ResultCode.SUCCESS.getCode() );
-        map.put(ResultCode.RETCODE.getCode(), ResultCode.SUCCESS_CODE.getMsg());
-        map.put(ResultCode.RESPONSE.getCode(), response);
-        return JSON.toJSONString(map);
+    public static ResultResponse getSuccess() {
+        return getSuccessResponse();
     }
 
-    public static String getSuccess(String key, Object value) {
+    public static ResultResponse getSuccess(Object response){
+        ResultResponse result = getSuccessResponse();
+        result.setData(response);
+        return result;
+    }
+
+    public static ResultResponse getSuccess(String key, Object value) {
+        ResultResponse result = getSuccessResponse();
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put(ResultCode.STATUS.getCode(), ResultCode.SUCCESS );
-        map.put(ResultCode.RETCODE.getCode(), ResultCode.SUCCESS_CODE.getMsg());
         map.put(key, value);
-        return JSON.toJSONString(map);
+        result.setData(map);
+        return result;
     }
 
-    public static String getSuccess(String[] keys, Object... values) {
+    public static ResultResponse getSuccess(String[] keys, Object... values) {
+        ResultResponse result = getSuccessResponse();
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put(ResultCode.STATUS.getCode(), ResultCode.SUCCESS );
-        map.put(ResultCode.RETCODE.getCode(), ResultCode.SUCCESS_CODE.getMsg());
         if (values != null && values.length > 0) {
             for (int i = 0; i < values.length; i++) {
                 map.put(keys[i], values[i]);
             }
         }
-        return JSON.toJSONString(map);
+        result.setData(map);
+        return result;
     }
 
 }

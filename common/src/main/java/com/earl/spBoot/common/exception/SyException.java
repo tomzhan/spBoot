@@ -11,25 +11,25 @@ public class SyException extends RuntimeException{
 
     private static final long serialVersionUID = 1L;
 
-    private String resultCode;
+    private int resultCode;
 
     public SyException(Throwable cause) {
         super(cause);
         this.resultCode = ResultCode.OP_ERROR.getCode();
     }
 
-    public SyException(String resultCode, Throwable cause) {
+    public SyException(int resultCode, Throwable cause) {
         super(cause);
         this.resultCode = resultCode;
     }
 
 
-    public SyException(String resultCode) {
+    public SyException(int resultCode) {
         super(ResultCode.getMessage(resultCode));
         this.resultCode = resultCode;
     }
 
-    public String getResultCode() {
+    public int getResultCode() {
         return resultCode;
     }
 

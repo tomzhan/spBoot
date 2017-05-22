@@ -1,5 +1,6 @@
 package com.earl.spBoot.admin.config;
 
+import com.earl.spBoot.common.constants.ResultResponse;
 import com.earl.spBoot.common.exception.SyException;
 import com.earl.spBoot.common.util.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -45,11 +46,12 @@ public class GolbalAdvice {
      * @param exception 所有异常
      * @return 响应的错误信息
      */
-    public  @ResponseBody String ajaxError(Exception exception ){
+    public  @ResponseBody  ResultResponse ajaxError(Exception exception ){
+        log.error(exception.getMessage());
         if (exception instanceof SyException) {
             return ResultUtil.getError(((SyException) exception).getResultCode());
         } else {
-            return ResultUtil.getError(exception.getMessage());
+            return ResultUtil.getError( );
         }
     }
 

@@ -4,9 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.earl.spBoot.admin.base.BaseController;
 import com.earl.spBoot.bean.entity.DemoUser;
 import com.earl.spBoot.bean.vo.DemoUserVO;
-import com.earl.spBoot.business.service.admin.DemoUserService;
+import com.earl.spBoot.business.service.DemoUserService;
 import com.earl.spBoot.common.constants.ResultCode;
-import com.earl.spBoot.common.util.BeanUtil;
+import com.earl.spBoot.common.constants.ResultResponse;
+import com.earl.spBoot.common.util.BeanUtils;
 import com.earl.spBoot.common.util.ResultUtil;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections.CollectionUtils;
@@ -53,7 +54,7 @@ public class DemoController extends BaseController {
 
     //事务测试
     @RequestMapping(value="transactionTest",method = RequestMethod.GET)
-    public @ResponseBody  String saveDemoUser()   {
+    public @ResponseBody  ResultResponse   saveDemoUser()   {
          demoUserService.save();
          return ResultUtil.getSuccess();
     }
@@ -88,7 +89,7 @@ public class DemoController extends BaseController {
 
     //保存
     @RequestMapping(value="save",method=RequestMethod.POST)
-    public  @ResponseBody String save( DemoUser po)   {
+    public  @ResponseBody ResultResponse   save( DemoUser po)   {
         if ( po == null) {
             return ResultUtil.getError(ResultCode.PARAM_ERROR.getCode());
         }
@@ -109,7 +110,7 @@ public class DemoController extends BaseController {
 
     //更新
     @RequestMapping(value="update",method=RequestMethod.POST)
-    public @ResponseBody String update( DemoUserVO vo)   {
+    public    @ResponseBody ResultResponse update(DemoUserVO vo)   {
         if ( vo == null) {
             return ResultUtil.getError(ResultCode.PARAM_ERROR.getCode());
         }
@@ -117,7 +118,7 @@ public class DemoController extends BaseController {
         if ( po == null) {
             return ResultUtil.getError(ResultCode.PARAM_ERROR.getCode());
         }
-        BeanUtil.copyProperties(vo,po,BeanUtil.getNullPropertyNames(vo));
+        BeanUtils.copyProperties(vo,po, BeanUtils.getNullPropertyNames(vo));
         //更新
         demoUserService.updateByPrimaryKey(po);
         return ResultUtil.getSuccess();
@@ -125,7 +126,7 @@ public class DemoController extends BaseController {
 
     //删除
     @RequestMapping("delete")
-    public   @ResponseBody  String delete( String[] id )  {
+    public  @ResponseBody  ResultResponse   delete( String[] id )  {
         if (ArrayUtils.isEmpty(id)){
             return ResultUtil.getError(ResultCode.PARAM_ERROR.getCode());
         }
