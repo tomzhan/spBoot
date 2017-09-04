@@ -19,8 +19,6 @@
         <module>business</module>
         <!--实体模块-->
         <module>bean</module>
-        <!--代码生成模块-->
-        <module>code</module>
     </modules>
 
     <parent>
